@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class MyServer {
     public static void main(String [] args) {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        BlockingQueue deq = new ArrayBlockingQueue<String[]>(20, true);
+        BlockingQueue deq = new ArrayBlockingQueue<String[]>(10, true);
         CountDownLatch latch = new CountDownLatch(2);
         executor.execute(new EquationGenerator(deq, latch));
         executor.execute(new RiddleGenerator(deq, latch));

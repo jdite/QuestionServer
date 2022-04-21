@@ -18,8 +18,6 @@ public class RiddleGenerator implements Runnable {
     public void run() {
         Random gen = new Random();
         try (RandomAccessFile raf = new RandomAccessFile(Thread.currentThread().getContextClassLoader().getResource("riddles.csv").getFile(), "r")){
-            latch.countDown();
-            latch.await();
             while(true) {
                 raf.seek(gen.nextLong(0, raf.length() - 2));
                 raf.readLine();

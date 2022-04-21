@@ -7,7 +7,7 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 
 public class QuestionThread implements Runnable{
-    private Socket s;
+    private final Socket s;
     private BlockingQueue<String[]> deq;
     private int rounds = 300;
 
@@ -16,9 +16,9 @@ public class QuestionThread implements Runnable{
         this.deq = deq;
     }
     public void run() {
-        try (PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+        try (this.s;
+                PrintWriter out = new PrintWriter(s.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()))) {
-            deq.clear();
             String [] qa = deq.take();
             out.println(qa[0]);
             String answer;
@@ -39,7 +39,6 @@ public class QuestionThread implements Runnable{
                 qa = deq.take();
                 out.println(qa[0]);
             }
-            s.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

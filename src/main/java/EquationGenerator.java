@@ -17,12 +17,6 @@ public class EquationGenerator implements Runnable {
         Random gen = new Random();
         String [] qa = new String [2];
         int a, b, c;
-        latch.countDown();
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         while(true) {
             a = gen.nextInt(1, 51);
             if((c = gen.nextInt(1, 51)) < a)
